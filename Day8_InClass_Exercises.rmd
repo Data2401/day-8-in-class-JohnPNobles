@@ -11,15 +11,20 @@ output:nhtml_document
 Make a list that contains the information on a single playing card. Suit, face, and value. 
 
 ```{r}
-
-
+playing <- list("Diamonds", "Spades", "Clubs", "Hearts", "Ace", 2:10, "Jack", "Queen", "King", 1:13)
+playing
 ```
 
 
 Make a second list where each element contains all the options for suit, face, and value, respectively. 
 
 ```{r}
-
+playing_card <- list(
+  suit=c("Diamonds", "Spades", "Clubs", "Hearts"),
+  face=c("Ace", 2:10, "Jack", "Queen", "King"),
+  value=c(1:13)
+)
+playing_card
 
 ```
 
@@ -28,15 +33,16 @@ If `Newlist <- list(a=1:10, b="Good morning", c="Hi")`, write an R statement tha
 
 ```{r}
 Newlist <- list(a=1:10, b="Good morning", c="Hi")
-
-
+Newlist[[1]] <- Newlist$a + 1
+Newlist
 ```
 
 If `b <- list(a=1:10, c="Hello", d="AA")`, write an R expression that will give all elements of the first vector of b, except the second, and write another that returns only elements of `a` that are greater than 7.
 
 ```{r}
 b <- list(a=1:10, c="Hello", d="AA")
-
+b$a[-2]
+b$a[8:10]
 
 ```
 
@@ -44,6 +50,75 @@ Let `x <- list(a=5:10, c="Hello", d="AA")`, write an R statement to add a new it
 
 ```{r}
 x <- list(a=5:10, c="Hello", d="AA")
-
+x[["z"]] <- "NewItem"
+x
 
 ```
+
+
+```{r personal-practice}
+# New list methods
+x <- c("First"=1/2, "Second"=1/4, "Third"=1/4, "4"=3, "5"=0)
+x
+x+1
+x[c(-1,-2,-3)] # "-" means "not", "c(-2:-4)" means "not 2 through 4 (inclusive)"
+x["Second"]
+
+# names function
+y <- 1:4
+names(y) <- c("a", "b", "three", "four") # adds names as index to an existing list
+y
+y["a"]
+names(y) # returns names of indices
+names(y)[4] <- "new four"
+names(y)
+
+# %in% , xor , any , all logical operators
+numlist <- 1:8
+8 %in% numlist # is 8 in numlist? T/F
+9 %in% numlist
+xor(1 %in% numlist, 9 %in% numlist) # T bc only 1 is true
+any(4 %in% numlist, 10%in%numlist) # T bc at least 1 is true
+all(1%in%numlist, 2%in%numlist, 3%in%numlist, 100%in%numlist) # F bc not all true
+
+# other logical operators (> < >= <= == !=)
+1%in%numlist & 2%in%numlist # T bc both true
+1%in%numlist | 2%in%numlist # T bc at least one true
+!1%in%numlist # F bc condition is true
+
+# Making basic lists
+address_info <- list(
+  street="23011 Lake Crest Dr",
+  city="Huffman",
+  state="Texas",
+  zip="77336"
+)
+address_info
+
+family_info <- list(
+  names=c("Rex", "Shonna", "Ethan"),
+  relativity=c("Father", "Mother", "Brother"),
+  ages=c(55, 49, 16),
+  is_old=c(TRUE,TRUE,FALSE)
+)
+family_info
+str(family_info)
+# note, tags (labels in the list) aren't necessary
+
+# Dollar sign $ notation
+family_info$relativity
+  # if you have a list within a list, you can use 2 or more $
+  # ie my_dogs$favorites$toy produces the list of toys within the 
+  # favorites list within the my_dogs list
+
+# Double bracket notation [[]]
+family_info[[3]] # gives the 3rd component of the list without label
+family_info[3] # gives the 3rd component of the list with label
+# my_dogs$favorites[[2]] gives the 2nd component of the list inside the list
+
+# Matrices
+numbers <- c(5, 5, 5, 6, 6, 6, 7, 7, 7)
+num_matrix <- matrix(numbers, nrow=3)
+num_matrix
+```
+
